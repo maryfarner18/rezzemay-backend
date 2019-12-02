@@ -57,12 +57,12 @@ class UsersController < ApplicationController
             :password,
             :profile_image,
             :resume,
-            addresses: [],
-            educations: [],
-            work_experiences: [],
-            skills: [],
-            websites: [],
-            projects: []
+            addresses: [:street1, :street2, :city, :state, :zip, :country],
+            educations: [:university, :degree, :concentration, :start, :end],
+            work_experiences: [:company, :title, :start, :end, :city, :state, :description],
+            skills: [:name, :proficiency],
+            websites: [:link, :icon, :site],
+            projects: [:title, :description, :link, :image]
             )
     end
 
