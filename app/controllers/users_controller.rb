@@ -25,7 +25,7 @@ class UsersController < ApplicationController
         user = User.new(user_create_params)
         if user.valid?
             user.save
-            render user.user_obj
+            render json: user.user_obj
         else
             render json: error_json(user)
         end
