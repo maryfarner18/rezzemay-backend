@@ -1,16 +1,21 @@
 class UsersController < ApplicationController
 
-    def index
-        users = User.all
-        render json: UserSerializer.new(users)
-    end
+    # def index
+    #     users = User.all
+    #     render json: UserSerializer.new(users)
+    # end
 
-    def show
-        user = User.find(params[:id])
-        options = {
-            include: [:work_experiences, :skills, :projects, :addresses, :educations]
-        }
-        render json: UserSerializer.new(user, options)
+    # def show
+    #     user = User.find(params[:id])
+    #     options = {
+    #         include: [:work_experiences, :skills, :projects, :addresses, :educations]
+    #     }
+    #     render json: UserSerializer.new(user, options)
+    # end
+
+    def slug
+        user = User.find_by(username: unslug(params[:slug]))
+        render json: user.user_obj
     end
 
     def create
@@ -29,5 +34,10 @@ class UsersController < ApplicationController
         User.destory(params[id])
     end
 
+    private
+
+    def unslug(slug)
+        slug.split('-').join('')
+    end
 
 end
