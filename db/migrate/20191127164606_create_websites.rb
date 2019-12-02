@@ -4,7 +4,7 @@ class CreateWebsites < ActiveRecord::Migration[6.0]
       t.string :link
       t.string :icon
       t.string :site
-      t.user :references
+      t.references :user
 
       t.timestamps
     end
