@@ -6,6 +6,9 @@ class User < ApplicationRecord
     has_many :skills
     has_many :websites
 
+    has_one_attached :profile_image
+    has_one_attached :resume
+
     validates :username, uniqueness: true
 
     def user_obj 
@@ -17,7 +20,9 @@ class User < ApplicationRecord
                 'first_name': self.first_name,
                 'last_name': self.last_name,
                 'phone': self.phone,
-                'email': self.email
+                'email': self.email,
+                'profile_image': self.profile_image_url,
+                'resume': self.resume_url
             },
             'work_experiences': self.work_experiences.map do |work_exp|
                 {
@@ -76,5 +81,13 @@ class User < ApplicationRecord
 
     def slug_it # for generating website
         "#{first_name}-#{last_name}".downcase
+    end
+
+    def profile_image_url
+        rails_blob_path(self.profile_image, only_path: true) if self.profile_image.attached?
+    end
+
+    def resume_url
+        rails_blob_path(self.resume, only_path: true) if self.resume.attached?
     end
 end
