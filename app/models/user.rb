@@ -6,10 +6,13 @@ class User < ApplicationRecord
     has_many :skills
     has_many :websites
 
+    validates :username, uniqueness: true
+
     def user_obj 
         {
             'user': {
                 'id': self.id,
+                'user_slug': self.slug_it,
                 'username': self.username,
                 'first_name': self.first_name,
                 'last_name': self.last_name,
@@ -69,5 +72,9 @@ class User < ApplicationRecord
                 }
             end
         }
+    end
+
+    def slug_it # for generating website
+        "#{first_name}-#{last_name}".downcase
     end
 end
