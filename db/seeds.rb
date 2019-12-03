@@ -27,9 +27,9 @@ Project.create(user: mary, title: "Title 2", description: "blah blah blah", link
 Skill.create(user: mary, name: "Javascript", proficiency: "Expert")
 Skill.create(user: mary, name: "Ruby", proficiency: "Advanced")
 
-Website.create(user: mary, link: "", icon: "", site: "LinkedIn")
-Website.create(user: mary, link: "", icon: "", site: "Github")
-Website.create(user: mary, link: "", icon: "", site: "Medium")
+Website.create(user: mary, link: "")
+Website.create(user: mary, link: "")
+Website.create(user: mary, link: "")
 
 WorkExperience.create(user: mary, company: "US Air Force", title: "Computer Scientist", start: "2016", end: "2017", city: "Rome", state:"NY", description: "It sucked")
 WorkExperience.create(user: mary, company: "Bank of America Merrill Lynch", title: "Trader", start: "2017", end: "2018", city: "New York", state:"NY", description: "It sucked more")

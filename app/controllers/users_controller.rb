@@ -1,20 +1,7 @@
 class UsersController < ApplicationController
 
-    # def index
-    #     users = User.all
-    #     render json: UserSerializer.new(users)
-    # end
-
-    # def show
-    #     user = User.find(params[:id])
-    #     options = {
-    #         include: [:work_experiences, :skills, :projects, :addresses, :educations]
-    #     }
-    #     render json: UserSerializer.new(user, options)
-    # end
-
-    def slug
-        user = User.find_by(username: unslug(params[:slug]))
+    def show
+        user = User.find_by(username: unslug(params[:id]))
         render json: user.user_obj
     end
 
@@ -36,7 +23,6 @@ class UsersController < ApplicationController
         else
             render json: error_json(user)
         end
-
     end
 
     def update
