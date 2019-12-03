@@ -25,6 +25,7 @@ class User < ApplicationRecord
                 'resume': self.resume_url,
                 'work_experiences': self.work_experiences.map do |work_exp|
                     {
+                        'id': work_exp.id,
                         'company': work_exp.company,
                         'title': work_exp.title,
                         'start': work_exp.start,
@@ -37,12 +38,14 @@ class User < ApplicationRecord
                 end,
                 'skills': self.skills.map do |skill|
                     {
+                        'id': skill.id,
                         'name': skill.name,
                         'proficiency': skill.proficiency
                     }
                 end,
                 'education': self.educations.map do |edu|
                     {
+                        'id': edu.id,
                         'university': edu.university,
                         'degree': edu.degree,
                         'concentration': edu.concentration,
@@ -52,6 +55,7 @@ class User < ApplicationRecord
                 end,
                 'projects': self.projects.map do |proj|
                     {
+                        'id': proj.id,
                         'title': proj.title,
                         'description': proj.description,
                         'link': proj.link,
@@ -60,13 +64,13 @@ class User < ApplicationRecord
                 end,
                 'websites': self.websites.map do |web|
                     {
-                        'link': web.link,
-                        'icon': web.icon,
-                        'site': web.site
+                        'id': web.id
+                        'link': web.link
                     }
                 end,
                 'addresses': self.addresses.map do |add|
                     {
+                        'id': add.id,
                         'street1': add.street1,
                         'street2': add.street2,
                         'city': add.city,
