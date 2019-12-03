@@ -39,7 +39,7 @@ class UsersController < ApplicationController
 
     def user_create_params
         params.permit(
-            user: {
+            user: [
                 :username,
                 :first_name,
                 :last_name,
@@ -47,8 +47,8 @@ class UsersController < ApplicationController
                 :email,
                 :password,
                 :profile_image,
-                :resume,
-            },
+                :resume
+            ],
             addresses: [:street1, :street2, :city, :state, :zip, :country],
             educations: [:university, :degree, :concentration, :start, :end],
             work_experiences: [:company, :title, :start, :end, :city, :state, :description],
