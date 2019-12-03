@@ -6,8 +6,6 @@ class UsersController < ApplicationController
     end
 
     def create
-        byebug
-
         user = User.create(user_create_params[:user])
 
         user.addresses.create(addresses_params)
@@ -27,6 +25,7 @@ class UsersController < ApplicationController
 
     def update
         user = User.find(params[:id])
+
         puts("In update")
         puts(params)
     end    
@@ -40,7 +39,7 @@ class UsersController < ApplicationController
 
     def user_create_params
         params.permit(
-            user: [
+            user: {
                 :username,
                 :first_name,
                 :last_name,
@@ -49,7 +48,7 @@ class UsersController < ApplicationController
                 :password,
                 :profile_image,
                 :resume,
-            ],
+            },
             addresses: [:street1, :street2, :city, :state, :zip, :country],
             educations: [:university, :degree, :concentration, :start, :end],
             work_experiences: [:company, :title, :start, :end, :city, :state, :description],
