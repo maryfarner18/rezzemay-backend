@@ -24,15 +24,22 @@ class UsersController < ApplicationController
     end
 
     def update
+        byebug
         user = User.find(params[:id])
 
-        puts("In update")
-        puts(params)
+        user.update(user_create_params)
+
+        if user.valid?
+            user.save
+            render json: user.user_obj
+        else
+            render json: error_json(user)
+        end
     end    
 
     def destroy
         #Probably need to destroy all of this user's info too?
-        User.destory(params[id])
+        User.destory(params[:id])
     end
 
     private
@@ -45,9 +52,7 @@ class UsersController < ApplicationController
                 :last_name,
                 :phone,
                 :email,
-                :password,
-                :profile_image,
-                :resume
+                :password
             ],
             addresses: [:street1, :street2, :city, :state, :zip, :country],
             educations: [:university, :degree, :concentration, :start, :end],
