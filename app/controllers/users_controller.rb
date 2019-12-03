@@ -19,10 +19,17 @@ class UsersController < ApplicationController
     end
 
     def create
-        puts("In create")
-        puts(params)
+        byebug
 
-        user = User.new(user_create_params)
+        user = User.create(user_create_params[:user])
+
+        user.addresses.create(addresses_params)
+        user.educations.create(educations_params)
+        user.work_experiences.create(work_experiences_params)
+        user.skills.create(skills_params)
+        user.websites.create(websites_params)
+        user.projects.create(projects_params)
+
         if user.valid?
             user.save
             render json: user.user_obj
@@ -30,8 +37,6 @@ class UsersController < ApplicationController
             render json: error_json(user)
         end
 
-        # user.profile_image.attach(params.require(:profile_image))
-        # user.resume.attach(params.require(:resume))
     end
 
     def update
@@ -48,22 +53,48 @@ class UsersController < ApplicationController
     private
 
     def user_create_params
-        params.require(:user).permit(
-            :username,
-            :first_name,
-            :last_name,
-            :phone,
-            :email,
-            :password,
-            :profile_image,
-            :resume,
+        params.permit(
+            user: [
+                :username,
+                :first_name,
+                :last_name,
+                :phone,
+                :email,
+                :password,
+                :profile_image,
+                :resume,
+            ],
             addresses: [:street1, :street2, :city, :state, :zip, :country],
             educations: [:university, :degree, :concentration, :start, :end],
             work_experiences: [:company, :title, :start, :end, :city, :state, :description],
             skills: [:name, :proficiency],
-            websites: [:link, :icon, :site],
+            websites: [:link],
             projects: [:title, :description, :link, :image]
             )
+    end
+
+    def addresses_params
+        user_create_params[:addresses]
+    end
+
+    def educations_params
+        user_create_params[:educations]
+    end
+
+    def work_experiences_params
+        user_create_params[:work_experiences]
+    end
+
+    def skills_params
+        user_create_params[:skills]
+    end
+
+    def websites_params
+        user_create_params[:websites]
+    end
+
+    def projects_params
+        user_create_params[:projects]
     end
 
     def error_json(user)
