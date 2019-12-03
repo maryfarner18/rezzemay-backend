@@ -64,7 +64,7 @@ class User < ApplicationRecord
                 end,
                 'websites': self.websites.map do |web|
                     {
-                        'id': web.id
+                        'id': web.id,
                         'link': web.link
                     }
                 end,

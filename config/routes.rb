@@ -6,8 +6,8 @@ Rails.application.routes.draw do
   resources :work_experiences, only: [:show, :create]
   resources :addresses, only: [:show, :create]
 
-  resources :users, only: %i[create update destroy]
-  get '/users/:slug', to: 'users#slug'
+  resources :users, only: %i[create show update destroy]
+  # get '/users/:slug', to: 'users#slug'
   
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
