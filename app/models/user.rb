@@ -1,10 +1,10 @@
 class User < ApplicationRecord
-    has_many :work_experiences
-    has_many :addresses
-    has_many :educations
-    has_many :projects
-    has_many :skills
-    has_many :websites
+    has_many :work_experiences, dependent: :destroy
+    has_many :addresses, dependent: :destroy
+    has_many :educations, dependent: :destroy
+    has_many :projects, dependent: :destroy
+    has_many :skills, dependent: :destroy
+    has_many :websites, dependent: :destroy
 
     has_one_attached :profile_image
     has_one_attached :resume
