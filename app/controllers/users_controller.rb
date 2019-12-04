@@ -44,7 +44,6 @@ class UsersController < ApplicationController
     end
 
     def update
-        byebug
 
         user = User.find(params[:id])
         puts "user updating"
@@ -71,8 +70,8 @@ class UsersController < ApplicationController
             addr.update(websites_params[:websites][idx])
         end
         # user.websites.update(websites_params[:websites])
-        user.websites.each_with_index do |addr, idx|
-            addr.update(websites_params[:websites][idx])
+        user.projects.each_with_index do |addr, idx|
+            addr.update(projects_params[:projects][idx])
         end
         # user.projects.update(projects_params[:projects])
         if user.valid?
