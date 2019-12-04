@@ -82,8 +82,8 @@ ActiveRecord::Schema.define(version: 2019_12_02_181131) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "username"
-    t.string "password"
+    t.string "password_digest"
+    t.string "user_slug"
     t.string "first_name"
     t.string "last_name"
     t.string "phone"
@@ -94,8 +94,6 @@ ActiveRecord::Schema.define(version: 2019_12_02_181131) do
 
   create_table "websites", force: :cascade do |t|
     t.string "link"
-    t.string "icon"
-    t.string "site"
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

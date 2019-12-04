@@ -1,13 +1,12 @@
 Rails.application.routes.draw do
-  resources :websites, only: [:show, :create]
-  resources :skills, only: [:show, :create]
-  resources :projects, only: [:show, :create]
-  resources :educations, only: [:show, :create]
-  resources :work_experiences, only: [:show, :create]
-  resources :addresses, only: [:show, :create]
+  resources :users, only: %i[show update destroy]
 
-  resources :users, only: %i[create show update destroy]
-  # get '/users/:slug', to: 'users#slug'
-  
+  # sessions
+
+  post '/signup', to: 'users#create'
+  post '/login', to: 'sessions#create'
+  delete '/logout', to: 'sessions#destroy'
+  get '/logged_in', to: 'sessions#is_logged_in?'
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

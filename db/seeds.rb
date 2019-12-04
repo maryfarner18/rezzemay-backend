@@ -14,7 +14,7 @@ Website.destroy_all()
 Project.destroy_all()
 User.destroy_all()
 
-mary = User.create(first_name: "Mary", last_name: "Farner", username: "maryfarner", password: "password", phone: "2692671103", email:"maryfarner@gmail.com")
+mary = User.create(first_name: "Mary", last_name: "Farner", user_slug: 'mary-farner', password: "password", password_confirmation: "password", phone: "2692671103", email:"maryfarner@gmail.com")
 
 Education.create(user: mary, university: "Yale", degree:"BS", concentration: "Computer Science & Math", start:"2012", end:"2016")
 Education.create(user: mary, university: "Flatiron", degree:"N/A", concentration: "Software Development", start:"2019", end:"2020")

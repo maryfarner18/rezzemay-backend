@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+
+    has_secure_password
+    
     has_many :work_experiences, dependent: :destroy
     has_many :addresses, dependent: :destroy
     has_many :educations, dependent: :destroy
@@ -6,23 +9,28 @@ class User < ApplicationRecord
     has_many :skills, dependent: :destroy
     has_many :websites, dependent: :destroy
 
+    # Active Storage related
     has_one_attached :profile_image
     has_one_attached :resume
 
-    validates :username, uniqueness: true
+
+    validates :email, uniqueness: true
+    validates :user_slug, uniqueness: true
 
     def user_obj 
         {
-            'user': {
-                'id': self.id,
-                'user_slug': self.slug_it,
-                'username': self.username,
-                'first_name': self.first_name,
-                'last_name': self.last_name,
-                'phone': self.phone,
-                'email': self.email,
-                'profile_image': self.profile_image_url,
-                'resume': self.resume_url,
+            'data': {
+                'user': {
+                    'id': self.id,
+                    'user_slug': self.user_slug,
+                    # 'username': self.username,
+                    'first_name': self.first_name,
+                    'last_name': self.last_name,
+                    'phone': self.phone,
+                    'email': self.email,
+                    'profile_image': self.profile_image_url,
+                    'resume': self.resume_url
+                },
                 'work_experiences': self.work_experiences.map do |work_exp|
                     {
                         'id': work_exp.id,
@@ -83,9 +91,11 @@ class User < ApplicationRecord
         }
     end
 
-    def slug_it # for generating website
-        "#{first_name}-#{last_name}".downcase
-    end
+    # def slug_it # for generating website
+    #     "#{first_name}-#{last_name}".downcase
+    # end
+
+    # Active Storage
 
     def profile_image_url
         rails_blob_path(self.profile_image, only_path: true) if self.profile_image.attached?
