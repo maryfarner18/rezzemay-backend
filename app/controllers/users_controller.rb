@@ -36,12 +36,45 @@ class UsersController < ApplicationController
 
     end
 
-    def update
-        # byebug
+    def files
+        byebug
         user = User.find(params[:id])
 
-        user.update(user_update_params)
+        
+    end
 
+    def update
+        byebug
+
+        user = User.find(params[:id])
+        puts "user updating"
+        user.update(user_create_params[:user])
+        puts 'addresses about to update'
+        user.addresses.each_with_index do |addr, idx|
+            addr.update(addresses_params[:addresses][idx])
+        end
+        # user.addresses.update_all(addresses_params[:addresses])
+        puts 'addresses updated'
+        user.educations.each_with_index do |addr, idx|
+            addr.update(educations_params[:educations][idx])
+        end
+        # user.educations.update(educations_params[:educations])
+        user.work_experiences.each_with_index do |addr, idx|
+            addr.update(work_experiences_params[:work_experiences][idx])
+        end
+        # user.work_experiences.update(work_experiences_params[:work_experiences])
+        user.skills.each_with_index do |addr, idx|
+            addr.update(skills_params[:skills][idx])
+        end
+        # user.skills.update(skills_params[:skills])
+        user.websites.each_with_index do |addr, idx|
+            addr.update(websites_params[:websites][idx])
+        end
+        # user.websites.update(websites_params[:websites])
+        user.websites.each_with_index do |addr, idx|
+            addr.update(websites_params[:websites][idx])
+        end
+        # user.projects.update(projects_params[:projects])
         if user.valid?
             user.save
             render json: {
@@ -66,7 +99,7 @@ class UsersController < ApplicationController
     def user_create_params
         params.permit(
             user: [
-                :user_slug, :first_name, :last_name, :phone, :email, :password, :profile_image, :resume
+                :user_slug, :first_name, :last_name, :phone, :email, :password, :id
             ]
         )
     end
@@ -85,25 +118,25 @@ class UsersController < ApplicationController
 
     def addresses_params
         params.permit(
-            addresses: [:street1, :street2, :city, :state, :zip, :country]
+            addresses: [:street1, :street2, :city, :state, :zip, :country, :id]
         )
     end
 
     def educations_params
         params.permit(
-            educations: [:university, :degree, :concentration, :start, :end]
+            educations: [:university, :degree, :concentration, :start, :end, :id]
         )
     end
 
     def work_experiences_params
         params.permit(
-            work_experiences: [:company, :title, :start, :end, :city, :state, :description]
+            work_experiences: [:company, :title, :start, :end, :city, :state, :description, :id]
         )
     end
 
     def skills_params
         params.permit(
-            skills: [:name, :proficiency]
+            skills: [:name, :proficiency, :id]
         )
     end
 
@@ -115,7 +148,7 @@ class UsersController < ApplicationController
 
     def projects_params
         params.permit(
-            projects: [:title, :description, :link, :image]
+            projects: [:title, :description, :link, :image, :id]
         )
     end
 
