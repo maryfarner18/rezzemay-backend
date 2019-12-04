@@ -11,17 +11,17 @@ class UsersController < ApplicationController
     def create
 
         # Create user
-        user = User.new(user_create_params)
+        user = User.new(user_create_params[:user])
         
         if user.valid?
             user.save
             # associate form data with user
-            user.addresses.create(addresses_params)
-            user.educations.create(educations_params)
-            user.work_experiences.create(work_experiences_params)
-            user.skills.create(skills_params)
-            user.websites.create(websites_params)
-            user.projects.create(projects_params)
+            user.addresses.create(addresses_params[:addresses])
+            user.educations.create(educations_params[:educations])
+            user.work_experiences.create(work_experiences_params[:work_experiences])
+            user.skills.create(skills_params[:skills])
+            user.websites.create(websites_params[:websites])
+            user.projects.create(projects_params[:projects])
             
             # login
             
