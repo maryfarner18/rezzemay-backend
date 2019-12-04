@@ -6,8 +6,8 @@ Rails.application.routes.draw do
   # post '/signup', to: 'users#create'
   
   post '/login', to: 'auth#create'
-  delete '/logout', to: 'auth#destroy'
 
+  get '/auto_login', to: 'auth#auto_login'
   # get '/logged_in', to: 'sessions#is_logged_in?'
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

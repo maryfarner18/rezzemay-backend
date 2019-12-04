@@ -40,8 +40,13 @@ class UsersController < ApplicationController
         byebug
         user = User.find(params[:id])
 
-        user.update(user_create_params)
-
+        user.update(user_create_params[:user])
+        user.addresses.update(addresses_params[:addresses])
+        user.educations.update(educations_params[:educations])
+        user.work_experiences.update(work_experiences_params[:work_experiences])
+        user.skills.update(skills_params[:skills])
+        user.websites.update(websites_params[:websites])
+        user.projects.update(projects_params[:projects])
         if user.valid?
             user.save
             render json: {
@@ -66,7 +71,7 @@ class UsersController < ApplicationController
     def user_create_params
         params.permit(
             user: [
-                :user_slug, :first_name, :last_name, :phone, :email, :password
+                :user_slug, :first_name, :last_name, :phone, :email, :password, :profile_image, :resume
             ]
         )
     end
