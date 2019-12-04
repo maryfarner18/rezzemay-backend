@@ -37,10 +37,10 @@ class UsersController < ApplicationController
     end
 
     def update
-        byebug
+        # byebug
         user = User.find(params[:id])
 
-        user.update(user_create_params)
+        user.update(user_update_params)
 
         if user.valid?
             user.save
@@ -68,6 +68,18 @@ class UsersController < ApplicationController
             user: [
                 :user_slug, :first_name, :last_name, :phone, :email, :password
             ]
+        )
+    end
+
+    def user_update_params
+        params.permit(
+            user: [:user_slug, :first_name, :last_name, :phone, :email, :password, :id],
+            addresses: [:street1, :street2, :city, :state, :zip, :country, :id],
+            educations: [:university, :degree, :concentration, :start, :end, :id],
+            work_experiences: [:company, :title, :start, :end, :city, :state, :description, :id],
+            skills: [:name, :proficiency, :id],
+            websites: [:link, :id],
+            projects: [:title, :description, :link, :image, :id]
         )
     end
 
