@@ -2,30 +2,38 @@ class UsersController < ApplicationController
 
     def show
         user = User.find_by(user_slug: params[:id])
-        render json: user.user_obj
+        render json: {
+            status: 200,
+            data: user.user_obj
+        }
     end
 
     def create
 
         # Create user
-
-        # associate form data with user
-
-        @user = User.create(user_create_params)
+        user = User.new(user_create_params)
         
-        if @user.valid?
-            @user.save
-            login!
-            @user.addresses.create(addresses_params)
-            @user.educations.create(educations_params)
-            @user.work_experiences.create(work_experiences_params)
-            @user.skills.create(skills_params)
-            @user.websites.create(websites_params)
-            @user.projects.create(projects_params)
-            render json: @user.user_obj
+        if user.valid?
+            user.save
+            # associate form data with user
+            user.addresses.create(addresses_params)
+            user.educations.create(educations_params)
+            user.work_experiences.create(work_experiences_params)
+            user.skills.create(skills_params)
+            user.websites.create(websites_params)
+            user.projects.create(projects_params)
+            
+            # login
+            
+            # send data
+            render json: {
+                status: 201,
+                data: user.user_obj
+            }
         else
-            render json: error_json(@user)
+            render json: error_json(user)
         end
+
     end
 
     def update
@@ -36,7 +44,10 @@ class UsersController < ApplicationController
 
         if user.valid?
             user.save
-            render json: user.user_obj
+            render json: {
+                status: 202,
+                data: user.user_obj
+            }
         else
             render json: error_json(user)
         end
@@ -44,7 +55,10 @@ class UsersController < ApplicationController
 
     def destroy
         #Probably need to destroy all of this user's info too?
-        User.destory(params[:id])
+        User.destroy(params[:id])
+        render json: {
+            status: 200
+        }
     end
 
     private
@@ -52,7 +66,7 @@ class UsersController < ApplicationController
     def user_create_params
         params.permit(
             user: [
-                :username, :first_name, :last_name, :phone, :email, :password
+                :user_slug, :first_name, :last_name, :phone, :email, :password
             ]
         )
     end
