@@ -19,7 +19,6 @@ class User < ApplicationRecord
 
     def user_obj 
         {
-
             'user': {
                 'id': self.id,
                 'user_slug': self.user_slug,
@@ -87,7 +86,6 @@ class User < ApplicationRecord
                     'country': add.country
                 }
             end
-        
         }
     end
 
