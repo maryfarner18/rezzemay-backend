@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   # sessions
 
   # post '/signup', to: 'users#create'
+  post '/users/:id/files', to: 'users#files'
   
   post '/login', to: 'auth#create'
 
