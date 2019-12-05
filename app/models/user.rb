@@ -66,7 +66,6 @@ class User < ApplicationRecord
                     'title': proj.title,
                     'description': proj.description,
                     'link': proj.link,
-                    'image': proj.image
                 }
             end,
             'websites': self.websites.map do |web|
