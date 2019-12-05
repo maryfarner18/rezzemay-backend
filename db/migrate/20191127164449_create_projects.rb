@@ -4,7 +4,6 @@ class CreateProjects < ActiveRecord::Migration[6.0]
       t.string :title
       t.string :description
       t.string :link
-      t.string :image
       t.references :user, null: false, foreign_key: true
 
       t.timestamps
